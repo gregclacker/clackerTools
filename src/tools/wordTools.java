@@ -4,8 +4,6 @@ import java.util.ArrayList;
 
 public class wordTools {
 	
-	//pull test
-	
 	static public String[] pullWords(String source, String space)
 	{	
 		ArrayList<String> arr = new ArrayList<String>();
