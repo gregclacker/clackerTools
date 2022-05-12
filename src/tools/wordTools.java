@@ -4,7 +4,17 @@ import java.util.ArrayList;
 
 public class wordTools {
 	
-	static public String[] pullWords(String source, String space)
+	public static int findLast(String source, String of)
+	{
+		int r = source.indexOf(source);
+		for(int l = source.length(); r + 1 < l;){
+			int t = source.indexOf(source, r + 1);
+			if(t != -1) r = t; else break;
+		}
+		return r;
+	}
+	
+	public static String[] pullWords(String source, String space)
 	{	
 		ArrayList<String> arr = new ArrayList<String>();
 		

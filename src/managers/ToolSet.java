@@ -6,6 +6,7 @@ import java.util.Scanner;
 import tools.*;
 
 public class ToolSet {
+
 	public Scanner scanner;
 	protected String spacer = "\t";
 	
@@ -16,6 +17,10 @@ public class ToolSet {
 		this.scanner = scanner;
 	}
 	public ToolSet() {};
+	
+	public void cycle() {
+		
+	}
 	
 	public void string_separateByString(int layer) {
 		string_separateByString(layer, "\t|\t");
@@ -37,7 +42,13 @@ public class ToolSet {
 	  	int firstWordN = scanner.nextInt();
 	  
 	  	print(form_prep + "fancyPrint (true/false):\t"); 
-	  	String enders = scanner.nextBoolean() ? "\"": "";
+	  	String enders = "";
+	  	try{
+	  		enders = scanner.nextBoolean() ? "\"": "";
+	  	}
+	  	catch(Exception e){
+	  		println(form_prep + "\ttypo, defaulting to False:\t" + e);
+	  	}
 	  
 	  	print(form_prep + "source text:\t"); 
 	  	String nextLines = getNextLines();
@@ -46,13 +57,15 @@ public class ToolSet {
 	  		  
 	  	int sentence_i = 0;
 	  	form_prep += "\t";
-	  	System.out.println(form_prep + "Sentence#" + form_spacer +"Word Count" + form_spacer + "First " + firstWordN + " words");
+	  	println(form_prep + "Sentence#" + form_spacer +"Word Count" + form_spacer + "First " + firstWordN + " words");
 	  	  	
+	  	//float startTime = System.currentTimeMillis();
+	  	float aveCharLength = 0;
 	  	for(int i = 0; i < words.length;) {
 	  		sentence_i += 1;
 	  		int ni = i;
 	  		String ret = "";
-	  		boolean brokenEnd = true;
+	  		boolean brokenEnd = words[ni].endsWith(separator_sentence);
 	  
 	  		for(; ni < words.length; ni++) { 
 	  			brokenEnd = words[ni].endsWith(separator_sentence);
@@ -60,7 +73,8 @@ public class ToolSet {
 	  				ret += enders+ words[ni] +enders;
 	  				if(ni - i + 1 < firstWordN && !brokenEnd) ret += ", "; else ret += " ..."; 
 	  			}
-	  
+	  			
+	  			aveCharLength += words[ni].length();
 	  			if(brokenEnd) break; 
 	  		}
 	  
@@ -69,7 +83,9 @@ public class ToolSet {
 	  		println(form_prep + sentence_i + form_spacer + (ni - i) + form_spacer + ret);
 	  		i = ni + 1;
 	  	}
-	 }
+	  	println(form_prep + "Average Char. Length:" + (aveCharLength / words.length));
+	  	print(form_prep + "done.");
+	}
 	
 	public void setLayer(int layer) {
 		this.layer = layer;
