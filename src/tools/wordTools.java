@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class wordTools {
 	
-	//push test
+	//pull test
 	
 	static public String[] pullWords(String source, String space)
 	{	
