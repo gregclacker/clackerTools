@@ -1,0 +1,4 @@
+INDEX VERSION 1.131+C:\Users\turtl\Documents\GitHub\clackerTools\.metadata\.plugins\org.eclipse.jdt.core
+1865797976.index
+3397360025.index
+1030870315.index

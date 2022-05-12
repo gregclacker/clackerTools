@@ -1,0 +1,110 @@
+package managers;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+public class ToolSet {
+	public Scanner scanner;//is not closed, do that your self
+	
+	public String spacer = "\t";
+	
+	int _layer = 0;
+	String form_preset_spacer = "";
+	
+	public ToolSet() {}
+	public ToolSet(Scanner scanner) {
+		this.scanner = scanner;
+	}
+	
+	public void string_separateByString(int layer) { 
+		if(scanner == null){
+			System.out.println(form_preset_spacer + "toolset:" + hashCode() + " has no scanner");
+		}
+		
+		String form_spacer = spacer + "|" + spacer;
+		
+		System.out.println(form_preset_spacer + "english_countSentenceLength()\n"
+				+ form_preset_spacer + "word separator (no quotes):\t"); 
+		String separator_word = scanner.nextLine();
+	  
+	  System.out.print(form_prep + "sentence separator (no quotes):\t"); String
+	  separator_sentence = in.nextLine();
+	  
+	  System.out.print(form_prep + "first word tracker (int):\t"); int firstWordN =
+	  Integer.parseInt(in.nextLine());
+	  
+	  System.out.print(form_prep + "fancyPrint (true/false):\t"); boolean
+	  fancyPrint = Boolean.parseBoolean(in.nextLine());
+	  
+	  System.out.print(form_prep + "source text:\t"); String[] words =
+	  Tools.pullWords(in, separator_word);
+	  
+	  System.out.println(); //System.exit(exitStatius.debug_Marker1.ordinal());
+	  
+	  int sentence_i = 0;
+	  
+	  form_prep += "\t"; System.out.println(form_prep + "Sentence#" + form_spacer +
+	  "Word Count" + form_spacer + "First " + firstWordN + " words");
+	  
+	  //for(String v : words) // System.out.println("\"" + v + "\"");
+	  //System.exit(exitStatius.debug_Marker1.ordinal());
+	  
+	  String enders = fancyPrint?"\"":""; for(int i = 0; i < words.length;) {
+	  sentence_i += 1; int ni = i; String ret = ""; boolean brokenEnd = true;
+	  
+	  for(; ni < words.length; ni++) { brokenEnd =
+	  words[ni].endsWith(separator_sentence);
+	  
+	  if(ni - i < firstWordN){ ret += enders+ words[ni] +enders; if(ni - i + 1 <
+	  firstWordN && !brokenEnd) ret += ", "; else ret += " ..."; }
+	  
+	  if(brokenEnd) break; }
+	  
+	  if(brokenEnd) ret += " " + enders+ words[ni] +enders;
+	  
+	  System.out.println(form_prep + sentence_i + form_spacer + (ni - i) +
+	  form_spacer + ret); i = ni + 1; }
+	 
+	  }
+	
+	public int getLayer() {
+		return _layer;
+	}
+	public void setLayer(int newLayer) {
+		_layer = newLayer;
+		
+		form_preset_spacer = "";
+		for(int i = 0; i < Math.abs(newLayer); i++)
+			form_preset_spacer += spacer;
+	}
+	
+	public String getFormPresetSpacer(){
+		return form_preset_spacer;
+	}
+	
+	//very necessary code. there is no alternative. no one wants to type that so many times
+	public void print(String out) {
+		System.out.print(out);
+	}
+	public void println(String out) {
+		print(out + "\n");
+	}
+	
+	public String[] pullNextLinesArr() {
+		ArrayList<String> tokens = new ArrayList<>();
+        Scanner scanner = new Scanner(System.in);
+ 
+        while (scanner.hasNext()) {
+            tokens.add(scanner.next());
+        }
+ 
+        scanner.close();
+        return tokens.toArray(new String[0]);
+	}
+	public String pullNextLines() {
+		String r = "";
+		for(String s : pullNextLinesArr()) r += s;
+		return r;
+	}
+}
